@@ -6,6 +6,9 @@
   "type": "module",
   "author": "wuyunqiang",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "h5",
     "promise",
@@ -18,13 +21,24 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --build tsconfig.json"
+    "build": "rm -rf ./dist && rollup -c"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^25.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.1.0",
     "@types/node": "^20.3.1",
     "@typescript-eslint/eslint-plugin": "^5.59.11",
     "@typescript-eslint/parser": "^5.59.11",
+    "core-js": "^3.31.0",
     "eslint": "^8.42.0",
+    "rollup": "^3.25.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "rollup-plugin-typescript2": "^0.34.1",
     "ts-node": "^10.9.1",
     "tslib": "^2.5.3",
     "typescript": "^5.1.3"
