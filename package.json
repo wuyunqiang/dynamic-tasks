@@ -1,0 +1,32 @@
+{
+  "name": "dynamic-tasks",
+  "version": "1.0.0",
+  "description": "基于promise的高性能任务库",
+  "main": "dist/src/index.js",
+  "type": "module",
+  "author": "wuyunqiang",
+  "license": "MIT",
+  "keywords": [
+    "h5",
+    "promise",
+    "microtask",
+    "task",
+    "parallel",
+    "serial",
+    "cancelable",
+    "高性能"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --build tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^20.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.11",
+    "@typescript-eslint/parser": "^5.59.11",
+    "eslint": "^8.42.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.5.3",
+    "typescript": "^5.1.3"
+  }
+}
