@@ -4,4 +4,4 @@ dist
 .yarn-error.log
 npm-debug.log
 /test
-.yarn-error.log
+yarn-error.log
