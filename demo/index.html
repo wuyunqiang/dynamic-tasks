@@ -98,7 +98,7 @@
     <div class="item item-red"> 16</div>
     <script type="module">
         import { DynamicTasks } from "/dynamic-tasks/dist/index.js"
-        let count = 80;
+        let count = 50;
         let curCount = 0;
         const test = () => {
             const app = document.getElementById("app")
@@ -112,7 +112,6 @@
             }
             // console.log('test str', str)
         }
-
         const p1 = (res) => {
             curCount = 0;
             test()
@@ -169,28 +168,33 @@
                     key: "p3",
                     task: p3,
                     parallel: true,
+                },
+                {
+                    key: "p4",
+                    task: p4,
+                    parallel: true,
                 }
             ]).then(data => {
                 console.log('test data 111', data);
             });
 
-            task.start([{
-                key: "p4",
-                task: p4,
-                parallel: true,
-            },
-            {
-                key: "p5",
-                task: p5,
-                parallel: true,
-            },
-            {
-                key: "p6",
-                task: p6,
-                parallel: true,
-            }]).then(data => {
-                console.log('test data 222', data);
-            });
+            // task.start([{
+            //     key: "p4",
+            //     task: p4,
+            //     parallel: true,
+            // },
+            // {
+            //     key: "p5",
+            //     task: p5,
+            //     parallel: true,
+            // },
+            // {
+            //     key: "p6",
+            //     task: p6,
+            //     parallel: true,
+            // }]).then(data => {
+            //     console.log('test data 222', data);
+            // });
         }
         const normal = document.getElementById("normal")
         normal.addEventListener('click', () => onClick())
