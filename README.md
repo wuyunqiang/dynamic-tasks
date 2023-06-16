@@ -20,10 +20,6 @@ npm install dynamic-tasks || yarn add dynamic-tasks
 ```
 import {
   DynamicTasks,
-  serialTask,
-  parallelMaxTask,
-  TaskCancelable,
-  nextFrameExecute,
 } from "dynamic-tasks";
 const p1 = (res) => {
   console.log("test p1 res", res, 1111);
@@ -94,13 +90,24 @@ task.start([
   },
 ]);
 ```
+
+## 其他api
 ```
+import {
+  serialTask,
+  parallelMaxTask,
+  TaskCancelable,
+  nextFrameExecute,
+} from "dynamic-tasks";
+
 serialTask([p1,p2,p3])
 parallelMaxTask([p1,p2,p3,p4], 3)
 nextFrameExecute(p1)
 nextFrameExecute(p3)
 ```
 
+
+## TaskCancelable
 ```
 const p3 = () =>
   new Promise((resolve) => {
@@ -114,12 +121,12 @@ cancelP
     console.log("test res", res);
   })
   .catch(() => {
-    if (cancelP.isCancel()) {
+    if (cancelP.isCancel()) { // true
       console.log("test cancel");
     }
   })
   .finally(() => {
-    console.log("test finally isCancel:", cancelP.isCancel());
+    console.log("test finally isCancel:", cancelP.isCancel()); // true
   });
 cancelP.cancel();
 ```
