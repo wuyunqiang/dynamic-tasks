@@ -1,6 +1,4 @@
-# dynamic-tasks
-
-## 基于 promise 的动态任务库
+# 基于 promise 的动态任务库
 
 功能：<br>
 1: 支持动态添加任务<br>
