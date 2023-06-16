@@ -22,7 +22,6 @@ const babelConfig = {
 const outputConfig = {
   format: "es",
   exports: "auto",
-  sourcemap: true,
 };
 
 const config = {
