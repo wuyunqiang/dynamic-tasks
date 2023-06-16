@@ -49,7 +49,7 @@ const p5 = (res) =>
     }, 1000);
   });
 ```
-
+## DynamicTasks
 ```
 import {DynamicTasks} from "dynamic-tasks";
 const task = new DynamicTasks({ parallelMax: 3, frame: true });
@@ -150,5 +150,5 @@ cancelP.cancel();
 
 ```
 import {nextFrameExecute} from "dynamic-tasks";
- nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
+nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 ```
