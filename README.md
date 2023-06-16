@@ -1,5 +1,6 @@
 # dynamic-tasks
-## 基于promise的动态任务库
+
+## 基于 promise 的动态任务库
 
 功能：<br>
 1: 支持动态添加任务<br>
@@ -11,16 +12,11 @@ https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b
 
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/d2d89081-5d89-4df9-8c3a-c22b7ca36956
 
-
-
 ```
 npm install dynamic-tasks || yarn add dynamic-tasks
 ```
 
 ```
-import {
-  DynamicTasks,
-} from "dynamic-tasks";
 const p1 = (res) => {
   console.log("test p1 res", res, 1111);
   return 1111;
@@ -52,7 +48,12 @@ const p5 = (res) =>
       console.log("test p5 res", res, 5555);
     }, 1000);
   });
+```
 
+```
+import {
+  DynamicTasks,
+} from "dynamic-tasks";
 const task = new DynamicTasks({ parallelMax: 3, frame: true });
 task.start([
   {
@@ -91,23 +92,38 @@ task.start([
 ]);
 ```
 
-## 其他api
-```
-import {
-  serialTask,
-  parallelMaxTask,
-  TaskCancelable,
-  nextFrameExecute,
-} from "dynamic-tasks";
+## serialTask
 
-serialTask([p1,p2,p3])
-parallelMaxTask([p1,p2,p3,p4], 3)
-nextFrameExecute(p1)
-nextFrameExecute(p3)
+```
+import {serialTask} from "dynamic-tasks";
+serialTask([p1,p2,p3]).then(res=>{
+    console.log("test res", res)
+  })
+  res:
+  [
+  { status: 'succ', data: 1111 },
+  { status: 'succ', data: 2222 },
+  { status: 'succ', data: 33333 }
+]
 ```
 
+## parallelMaxTask
+
+```
+import {parallelMaxTask} from "dynamic-tasks";
+  parallelMaxTask([p1,p2, p3], 2).then((res)=>{
+    console.log('test parallelMaxTask: ', res)
+    })
+  res:
+  [
+  { status: 'succ', data: 1111 },
+  { status: 'succ', data: 2222 },
+  { status: 'succ', data: 33333 }
+]
+```
 
 ## TaskCancelable
+
 ```
 const p3 = () =>
   new Promise((resolve) => {
@@ -129,4 +145,11 @@ cancelP
     console.log("test finally isCancel:", cancelP.isCancel()); // true
   });
 cancelP.cancel();
+```
+
+## parallelMaxTask
+
+```
+import {nextFrameExecute} from "dynamic-tasks";
+ nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 ```
