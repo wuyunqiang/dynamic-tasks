@@ -51,9 +51,7 @@ const p5 = (res) =>
 ```
 
 ```
-import {
-  DynamicTasks,
-} from "dynamic-tasks";
+import {DynamicTasks} from "dynamic-tasks";
 const task = new DynamicTasks({ parallelMax: 3, frame: true });
 task.start([
   {
@@ -125,6 +123,7 @@ import {parallelMaxTask} from "dynamic-tasks";
 ## TaskCancelable
 
 ```
+import {TaskCancelable} from "dynamic-tasks
 const p3 = () =>
   new Promise((resolve) => {
     setTimeout(() => {
