@@ -21,7 +21,7 @@ export const serialTask = async (tasks = []) => {
     const run = () => {
       if (curIndex < tasks.length) {
         const task:Task = tasks[curIndex];
-        task(resList)
+        Promise.resolve(task(resList))
           .then((res:any) => {
             resList[curIndex] = {
               status: "succ",
