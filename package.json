@@ -1,6 +1,6 @@
 {
   "name": "dynamic-tasks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "基于promise的高性能任务库",
   "main": "dist/legacy/index.js",
   "module": "dist/es/index.js",
