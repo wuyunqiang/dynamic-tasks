@@ -16,12 +16,10 @@ npm install dynamic-tasks || yarn add dynamic-tasks
 
 ```
 const p1 = (res) => {
-  console.log("test p1 res", res, 1111);
   return 1111;
 };
 
 const p2 = (res) => {
-    console.log("test p2 res", res, 1111);
   return 2222;
 };
 
@@ -29,21 +27,18 @@ const p3 = (res) =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(33333);
-      console.log("test p2 res", res, 33333);
     }, 2000);
   });
 const p4 = (res) =>
   new Promise((resolve, reject) => {
     setTimeout(() => {
       reject(4444);
-      console.log("test p4 res", res, 4444);
     }, 6000);
   });
 const p5 = (res) =>
   new Promise((resolve) => {
     setTimeout(() => {
       resolve(5555);
-      console.log("test p5 res", res, 5555);
     }, 1000);
   });
 ```
