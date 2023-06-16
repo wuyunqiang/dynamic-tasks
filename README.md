@@ -146,7 +146,7 @@ cancelP
 cancelP.cancel();
 ```
 
-## parallelMaxTask
+## nextFrameExecute
 
 ```
 import {nextFrameExecute} from "dynamic-tasks";
