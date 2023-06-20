@@ -160,7 +160,7 @@ nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 ## pool
 run in web worker thread pool。<br>
 独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
-可以通过串行的方式默认就是串行,获取到上一个task的结果。<br>
+可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
 可以通过网络获取数据运算。<br>
 ```
 import { pool } from "dynamic-tasks"
