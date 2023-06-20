@@ -49,7 +49,9 @@ const p5 = (res) =>
     }, 1000);
   });
 ```
+
 ## DynamicTasks
+
 ```
 import {DynamicTasks} from "dynamic-tasks";
 const task = new DynamicTasks({ parallelMax: 3, frame: true });
@@ -151,4 +153,70 @@ cancelP.cancel();
 ```
 import {nextFrameExecute} from "dynamic-tasks";
 nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
+```
+
+## pool
+```
+import { pool } from "dynamic-tasks"
+const p1 = (res) => {
+  console.log("test p1 res", res, 1111);
+  return 1111;
+};
+const p2 = (res) => {
+  console.log("test p2 res", 22222);
+};
+const p3 = (res) =>
+  new Promise((resolve) => {
+    const test = () => {
+      let count = 0;
+      for (let i = 0; i < 1000000000; i++) {
+        count = count + i;
+      }
+    };
+    test();
+    setTimeout(() => {
+      resolve(33333);
+    }, 5000);
+    console.log("test p3 res", res, 3333333);
+  });
+
+pool([
+  {
+    key: "p1",
+    task: p1,
+  },
+  {
+    key: "p2",
+    task: p2,
+  },
+  {
+    key: "p3",
+    task: p3,
+  },
+], 2).then((res) =>{
+  console.log("test pool:", res);
+  {
+    p1: {
+      data: 1111,
+      key: "p1",
+      status: "succ",
+    },
+    p2: {
+      data: undefined,
+      key: "p2",
+      status: "succ",
+    },
+    p3: {
+      data: 33333,
+      key: "p3",
+      status: "succ",
+    }
+  }
+});
+```
+
+## clearPool
+```
+import { clearPool } from "dynamic-tasks"
+clearPool()
 ```

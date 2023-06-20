@@ -6,6 +6,7 @@ let threadPool: Worker[] = [];
 
 /**
  * 使用webworker开启一个线程池 执行复杂运算
+ * real parallel
  * @param list 任务列表
  * @param max 最大并发数 默认为2 最好和cpu数量一致 不要设置过多
  * @returns 返回一个promise
