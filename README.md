@@ -7,6 +7,8 @@
 2: 支持并行&串行<br>
 3: 支持同步&异步<br>
 4: 支持时间切片<br>
+5: 支持web worker线程池<br>
+
 
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
 
@@ -156,10 +158,10 @@ nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 ```
 
 ## pool
-run in web worker pool。
-独立main thread因此不能访问外部变量。
-可以通过串行的方式默认就是串行,获取到上一个task的结果。
-可以通过网络获取数据运算。
+run in web worker thread pool。<br>
+独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
+可以通过串行的方式默认就是串行,获取到上一个task的结果。<br>
+可以通过网络获取数据运算。<br>
 ```
 import { pool } from "dynamic-tasks"
 const p1 = (res) => {
