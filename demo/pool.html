@@ -136,7 +136,7 @@
                     }
                 }
                 test();
-                reject(4444);
+                resolve(4444);
                 console.log("test p4 res", res, 4444444);
             });
         const p5 = (res) =>
@@ -165,12 +165,16 @@
             });
         const onClick = (opti = false) => {
             if (!opti) {
-                p1();
-                p2();
-                p3();
-                p4();
-                p5();
-                p6()
+                try {
+                    p1();
+                    p2();
+                    p3();
+                    p4();
+                    p5();
+                    p6();
+                } catch (error) {
+                    console.log('test error:', error);
+                }
                 return;
             }
 

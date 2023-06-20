@@ -2,7 +2,7 @@ import { PoolList, Resolve, TaskRes } from '../type/task';
 import workerStr from './worker'
 const blob = new Blob([workerStr], { type: 'text/plain' });
 const url = URL.createObjectURL(blob);
-const threadPool: any = {};
+let threadPool: Worker[] = [];
 
 /**
  * 使用webworker开启一个线程池 执行复杂运算
@@ -50,6 +50,16 @@ export const pool = async (list: PoolList, max = 2) => {
     runner(worker, index++)
   }
   return p
+}
+
+/**
+ * clear thread pool
+ */
+export const clearPool = () => {
+  threadPool.forEach(worker => {
+    worker.terminate()
+  })
+  threadPool = [];
 }
 
 export default pool;
