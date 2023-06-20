@@ -156,6 +156,10 @@ nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 ```
 
 ## pool
+run in web worker pool。
+独立main thread因此不能访问外部变量。
+可以通过串行的方式默认就是串行,获取到上一个task的结果。
+可以通过网络获取数据运算。
 ```
 import { pool } from "dynamic-tasks"
 const p1 = (res) => {
