@@ -11,6 +11,14 @@ export type TaskItem = {
     parallel?: boolean;
 }
 
+
+export type PoolItem = {
+    key: string;
+    task: Task,
+}
+
+export type PoolList = PoolItem[]
+
 export type TaskList = TaskItem[]
 export type Resolve = (value: any) => void
 
