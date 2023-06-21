@@ -3,9 +3,9 @@ this.store = {};
 this.addEventListener(
   "message",
   function (e) {
-    const key = e.data.key;
+    var key = e.data.key;
     if(e.data.type === 'remove-item' && this.store[key]){
-      Reflect.deleteProperty(this.store, key);
+      this.store[key] = null;
       return;
     }
     if(e.data.type === 'remove'){
@@ -15,7 +15,7 @@ this.addEventListener(
     if (!e.data.task) {
       return;
     }
-    const task = new Function('return (' + e.data.task + ')(this.store)');
+    var task = new Function('return (' + e.data.task + ')(this.store)');
     Promise.resolve(task())
       .then((res) => {
         this.store[key] = {

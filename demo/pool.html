@@ -97,7 +97,8 @@
     <div class="item item-blue"> 15</div>
     <div class="item item-red"> 16</div>
     <script type="module">
-        import { pool, clearPool } from "/dynamic-tasks/dist/es/index.js"
+        import { pool, clearPool, nextFrameExecute } from "/dynamic-tasks/dist/es/index.js"
+        console.log('test pool', pool, nextFrameExecute);
         let count = 50;
         let curCount = 0;
         const test = () => {

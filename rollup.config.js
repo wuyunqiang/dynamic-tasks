@@ -55,7 +55,7 @@ export default defineConfig([
       ...config.plugins,
       babel({
         ...babelConfig,
-        targets: ["chrome 100"],
+        targets: ["defaults"],
       }),
     ],
   },
@@ -71,7 +71,7 @@ export default defineConfig([
       ...config.plugins,
       babel({
         ...babelConfig,
-        targets: ["chrome 55"],
+        targets: ["chrome 55","ios_saf 10"],
       }),
     ],
   },
