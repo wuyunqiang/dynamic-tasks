@@ -94,68 +94,6 @@ task.start([
 ]);
 ```
 
-## serialTask
-
-```
-import {serialTask} from "dynamic-tasks";
-serialTask([p1,p2,p3]).then(res=>{
-    console.log("test res", res)
-  })
-  res:
-  [
-  { status: 'succ', data: 1111 },
-  { status: 'succ', data: 2222 },
-  { status: 'succ', data: 33333 }
-]
-```
-
-## parallelMaxTask
-
-```
-import {parallelMaxTask} from "dynamic-tasks";
-  parallelMaxTask([p1,p2, p3], 2).then((res)=>{
-    console.log('test parallelMaxTask: ', res)
-    })
-  res:
-  [
-  { status: 'succ', data: 1111 },
-  { status: 'succ', data: 2222 },
-  { status: 'succ', data: 33333 }
-]
-```
-
-## TaskCancelable
-
-```
-import {TaskCancelable} from "dynamic-tasks
-const p3 = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(33333);
-    }, 2000);
-  });
-const cancelP = TaskCancelable(p3());
-cancelP
-  .then((res) => {
-    console.log("test res", res);
-  })
-  .catch(() => {
-    if (cancelP.isCancel()) { // true
-      console.log("test cancel");
-    }
-  })
-  .finally(() => {
-    console.log("test finally isCancel:", cancelP.isCancel()); // true
-  });
-cancelP.cancel();
-```
-
-## nextFrameExecute
-
-```
-import {nextFrameExecute} from "dynamic-tasks";
-nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
-```
 
 ## pool
 run in web worker thread pool。<br>
@@ -226,3 +164,68 @@ pool([
 import { clearPool } from "dynamic-tasks"
 clearPool()
 ```
+
+## serialTask
+
+```
+import {serialTask} from "dynamic-tasks";
+serialTask([p1,p2,p3]).then(res=>{
+    console.log("test res", res)
+  })
+  res:
+  [
+  { status: 'succ', data: 1111 },
+  { status: 'succ', data: 2222 },
+  { status: 'succ', data: 33333 }
+]
+```
+
+## parallelMaxTask
+
+```
+import {parallelMaxTask} from "dynamic-tasks";
+  parallelMaxTask([p1,p2, p3], 2).then((res)=>{
+    console.log('test parallelMaxTask: ', res)
+    })
+  res:
+  [
+  { status: 'succ', data: 1111 },
+  { status: 'succ', data: 2222 },
+  { status: 'succ', data: 33333 }
+]
+```
+
+## TaskCancelable
+
+```
+import {TaskCancelable} from "dynamic-tasks
+const p3 = () =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(33333);
+    }, 2000);
+  });
+const cancelP = TaskCancelable(p3());
+cancelP
+  .then((res) => {
+    console.log("test res", res);
+  })
+  .catch(() => {
+    if (cancelP.isCancel()) { // true
+      console.log("test cancel");
+    }
+  })
+  .finally(() => {
+    console.log("test finally isCancel:", cancelP.isCancel()); // true
+  });
+cancelP.cancel();
+```
+
+## nextFrameExecute
+
+```
+import {nextFrameExecute} from "dynamic-tasks";
+nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
+```
+
+
