@@ -1,18 +1,5 @@
 # 基于 promise 的动态任务库
 
-功能：<br>
-1: 支持动态添加任务<br>
-有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
-2: 支持web worker线程池<br>
-无UI操作 大量运算 建议使用pool的线程池方式运行。<br>
-3: 支持idleCallback浏览器空闲执行<br>
-有UI操作 可以接受延迟的不紧急任务 建议使用idle或者idleCallback的方式运行。<br>
-4: 支持并行&串行<br>
-5: 支持同步&异步<br>
-6: 支持时间切片<br>
-
-
-
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
 
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/d2d89081-5d89-4df9-8c3a-c22b7ca36956
@@ -49,8 +36,9 @@ const p5 = (res) =>
     }, 1000);
   });
 ```
-
-## DynamicTasks
+# 功能：<br>
+## DynamicTasks 支持动态添加任务 支持时间切片<br>
+有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
 
 ```
 import {DynamicTasks} from "dynamic-tasks";
@@ -93,7 +81,8 @@ task.start([
 ```
 
 
-## pool
+## pool 支持web worker线程池<br>
+无UI操作 大量运算 建议使用pool的线程池方式运行。<br>
 run in web worker thread pool。<br>
 独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
 可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
@@ -164,7 +153,7 @@ clearPool()
 ```
 
 ## idleCallback
-浏览器空闲执行 不紧急的任务建议使用这个api
+ 浏览器空闲执行 不紧急的任务建议使用这个api
 ```
 import { idleCallback } from "dynamic-tasks"
 idleCallback((params)=>{
