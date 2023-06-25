@@ -2,11 +2,11 @@
 
 功能：<br>
 1: 支持动态添加任务<br>
-有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行
+有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
 2: 支持web worker线程池<br>
-无UI操作 大量运算 建议使用pool的线程池方式运行。
+无UI操作 大量运算 建议使用pool的线程池方式运行。<br>
 3: 支持idleCallback浏览器空闲执行<br>
-有UI操作 可以接受延迟的不紧急任务 建议使用idle或者idleCallback的方式运行。
+有UI操作 可以接受延迟的不紧急任务 建议使用idle或者idleCallback的方式运行。<br>
 4: 支持并行&串行<br>
 5: 支持同步&异步<br>
 6: 支持时间切片<br>
