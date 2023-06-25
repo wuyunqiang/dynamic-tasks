@@ -37,8 +37,13 @@ const p5 = (res) =>
   });
 ```
 # 功能：<br>
-## DynamicTasks 支持动态添加任务 支持时间切片<br>
+## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
+ * 支持动态添加
+ * 支持并行&串行
+ * 支持同步&异步
+ * 支持时间切片
+
 
 ```
 import {DynamicTasks} from "dynamic-tasks";
