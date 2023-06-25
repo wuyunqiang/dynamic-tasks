@@ -160,9 +160,6 @@
             });
         const onClick = (opti = false) => {
             try {
-                // idleCallback((params) => {
-                //     console.log('test idle', params, params.timeRemaining())
-                // }, { timeout: 10000 })
                 p1();
                 idle([
                 {
@@ -174,7 +171,6 @@
                 p3()
                 idleCallback((params)=>{
                     console.log('test idleCallback params', params)
-                    p4()
                 }, { timeout: 100})
                 p5();
 
