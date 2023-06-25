@@ -107,7 +107,7 @@
                 str += i
             }
         }
-        
+
         const p1 = (res) => {
             console.log("test p1 res", res, 1111, this);
             return 1111;
@@ -128,7 +128,7 @@
                 setTimeout(() => {
                     resolve(33333);
                 }, 5000)
-                
+
             });
         const p4 = (res) =>
             new Promise((resolve, reject) => {
@@ -155,7 +155,7 @@
                 }
                 test();
                 resolve(5555);
-                
+
             });
         const p6 = (res) =>
             new Promise((resolve) => {
@@ -178,6 +178,7 @@
                     p4();
                     p5();
                     p6();
+                    
                 } catch (error) {
                     console.log('test error:', error);
                 }
@@ -208,6 +209,8 @@
                 console.log('test pool:', res)
                 clearPool();
             })
+
+
         }
         const normal = document.getElementById("normal")
         normal.addEventListener('click', () => onClick())

@@ -31,3 +31,5 @@ export interface PromiseCancel extends Promise<any>{
     cancel:()=>void;
     isCancel: ()=> boolean
 }
+
+export type Store = { [key: string]: TaskRes }

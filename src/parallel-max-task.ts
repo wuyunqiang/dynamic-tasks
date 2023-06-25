@@ -23,10 +23,10 @@ export const parallelMaxTask = async (tasks = [], max = 3) => {
   let index = 0;
   let doneCount = 0;
   const run = async () => {
-    if (curParallelTaskCount >= max || index >= tasks.length) {
+    const curIndex = index++;
+    if (curParallelTaskCount >= max || curIndex >= tasks.length) {
       return;
     }
-    const curIndex = index++;
     try {
       ++curParallelTaskCount;
       const task: Task = tasks[curIndex];

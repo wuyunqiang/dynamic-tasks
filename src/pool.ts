@@ -1,7 +1,7 @@
 import { PoolList, Resolve, TaskRes } from '../type/task';
 import workerStr from './worker'
-const blob = new Blob([workerStr], { type: 'text/plain' });
-const url = URL.createObjectURL(blob);
+let blob: Blob;
+let url: string;
 let threadPool: Worker[] = [];
 
 /**
@@ -12,6 +12,12 @@ let threadPool: Worker[] = [];
  * @returns 返回一个promise
  */
 export const pool = async (list: PoolList, max = 1) => {
+  if (!blob) {
+    blob = new Blob([workerStr], { type: 'text/plain' });
+  }
+  if (!url) {
+    url = URL.createObjectURL(blob);
+  }
   const store: { [key: string]: TaskRes } = {}
   let _resolve: Resolve;
   const p = new Promise((resolve) => {
@@ -19,7 +25,8 @@ export const pool = async (list: PoolList, max = 1) => {
   })
   let doneCount = 0;
   let index = 0;
-  const runner = (curWorker: Worker, curIndex: number) => {
+  const runner = (curWorker: Worker) => {
+    const curIndex = index++;
     if (!curWorker || !list[curIndex]) {
       return;
     }
@@ -35,7 +42,7 @@ export const pool = async (list: PoolList, max = 1) => {
         _resolve(store)
         return;
       }
-      runner(curWorker, index++)
+      runner(curWorker)
     }
     curWorker.onerror = function (event) {
       console.dir('test error', event)
@@ -48,7 +55,7 @@ export const pool = async (list: PoolList, max = 1) => {
       worker = new Worker(url)
       threadPool[i] = worker;
     }
-    runner(worker, index++)
+    runner(worker)
   }
   return p
 }
