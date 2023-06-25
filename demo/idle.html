@@ -6,11 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function(){
-            console.log('test DOMContentLoaded')
-        })
-    </script>
     <style>
         @keyframes run {
             from {
@@ -58,7 +53,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'ZCOOLQingKeHuangYou';
         }
 
         .item-red {
@@ -69,8 +63,6 @@
             background: blue;
             margin-top: 10px;
         }
-
-       
     </style>
 </head>
 
@@ -104,113 +96,94 @@
 
     <div class="item item-blue"> 15</div>
     <div class="item item-red"> 16</div>
-    
-    <!-- <script type="module">
-        import { DynamicTasks } from "/dynamic-tasks/dist/index.js"
-        let count = 50;
+    <script type="module">
+        import { idleCallback, idle } from "/dynamic-tasks/dist/es/index.js"
+        console.log('test idle', idle);
+        console.log('test idleCallback', idleCallback);
+        let count = 10;
         let curCount = 0;
         const test = () => {
-            const app = document.getElementById("app")
-            let str = ''
-            for (let i = 0; i < 100000; i++) {
+            let str = 0;
+            for (let i = 0; i < 100000000; i++) {
                 str += i
             }
-            if (curCount < count) {
-                curCount++;
+            if(curCount< count){
+                ++curCount;
                 test();
             }
-            // console.log('test str', str)
         }
+
         const p1 = (res) => {
+            console.log("test p1 res", res, 1111, this);
             curCount = 0;
-            test()
-            console.log("test p1 res", res, 1111);
+            test();
             return 1111;
         };
         const p2 = (res) => {
             curCount = 0;
-            test()
+            test();
             console.log("test p2 res", 22222);
         }
         const p3 = (res) =>
             new Promise((resolve) => {
-                curCount = 0;
-                test()
-                resolve(33333);
                 console.log("test p3 res", res, 3333333);
+                curCount = 0;
+                test();
+                setTimeout(() => {
+                    resolve(33333);
+                }, 5000)
+
             });
         const p4 = (res) =>
             new Promise((resolve, reject) => {
-                curCount = 0;
-                test()
-                reject(4444);
                 console.log("test p4 res", res, 4444444);
+                curCount = 0;
+                test();
+                setTimeout(() => {
+                    resolve(4444);
+                }, 5000)
             });
         const p5 = (res) =>
             new Promise((resolve) => {
-                curCount = 0;
-                test()
-                resolve(5555);
                 console.log("test p5 res", res, 5555555);
+                curCount = 0;
+                test();
+                resolve(5555);
+
             });
         const p6 = (res) =>
             new Promise((resolve) => {
-                curCount = 0;
-                test()
-                resolve(6666);
                 console.log("test p6 res", res, 666666);
+                curCount = 0;
+                test();
+                resolve(6666);
             });
-        const onClick = (frame = false) => {
-            const task = new DynamicTasks({ parallelMax: 1, frame });
-            task.start([
+        const onClick = (opti = false) => {
+            try {
+                p1();
+                idle([
                 {
-                    key: "p1",
-                    task: p1,
-                    parallel: true,
-                },
-                {
-                    key: "p2",
-                    task: p2,
-                    parallel: true,
-                },
-                {
-                    key: "p3",
-                    task: p3,
-                    parallel: true,
-                },
-                {
-                    key: "p4",
-                    task: p4,
-                    parallel: true,
-                }
-            ]).then(data => {
-                console.log('test data 111', data);
-            });
+                    key: 'p2',
+                    task: p2
+                }],100).then(res => {
+                    console.log('test idle:', res)
+                })
+                p3()
+                idleCallback((params)=>{
+                    console.log('test idleCallback params', params)
+                }, { timeout: 100})
+                p5();
 
-            // task.start([{
-            //     key: "p4",
-            //     task: p4,
-            //     parallel: true,
-            // },
-            // {
-            //     key: "p5",
-            //     task: p5,
-            //     parallel: true,
-            // },
-            // {
-            //     key: "p6",
-            //     task: p6,
-            //     parallel: true,
-            // }]).then(data => {
-            //     console.log('test data 222', data);
-            // });
+            } catch (error) {
+                console.log('test error:', error);
+            }
         }
         const normal = document.getElementById("normal")
         normal.addEventListener('click', () => onClick())
 
         const optimize = document.getElementById("optimize")
         optimize.addEventListener('click', () => onClick(true))
-    </script> -->
+    </script>
 </body>
 
 </html>
