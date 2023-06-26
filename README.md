@@ -168,7 +168,8 @@ clearPool()
 ```
 
 ## idleCallback
- 浏览器空闲执行 不紧急的任务建议使用这个api
+浏览器空闲执行 不紧急的任务建议使用这个api
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免
 ```
 import { idleCallback } from "dynamic-tasks"
 idleCallback((params)=>{
@@ -177,7 +178,8 @@ idleCallback((params)=>{
 ```
 
 ## idle 
-浏览器空闲执行 不紧急的任务建议使用这个api
+浏览器空闲执行 不紧急的任务建议使用这个api 
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免
 ```
 import { idle } from "dynamic-tasks"
  idle([{key: 'p1',task: p1}],100).then(res => {
