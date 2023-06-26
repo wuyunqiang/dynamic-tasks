@@ -1,8 +1,15 @@
 # 基于 promise 的动态任务库
 
+## normal
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
 
+<img width="1327" alt="normal" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/8ed704ec-1428-4b53-9ea7-4f5f96dbe19e">
+
+
+## frame
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/d2d89081-5d89-4df9-8c3a-c22b7ca36956
+
+<img width="1307" alt="frame" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/b1c7cc68-73bb-4347-acc7-63fcaef7e586">
 
 ```
 npm install dynamic-tasks || yarn add dynamic-tasks
