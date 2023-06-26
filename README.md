@@ -1,4 +1,7 @@
 # 基于 promise 的动态任务库
+核心思路：<br>
+基于[rail](https://web.dev/rail/)标准,通过web worker,长任务拆分，分帧执行，利用浏览器空闲执行等方式，避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
+
 
 ## normal
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
