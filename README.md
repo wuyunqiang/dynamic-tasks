@@ -1,8 +1,18 @@
 # 基于 promise 的动态任务库
+核心思路：<br>
+基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,利用浏览器空闲执行等方式,避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
 
+
+## normal
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
 
+<img width="1327" alt="normal" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/8ed704ec-1428-4b53-9ea7-4f5f96dbe19e">
+
+
+## frame
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/d2d89081-5d89-4df9-8c3a-c22b7ca36956
+
+<img width="1307" alt="frame" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/b1c7cc68-73bb-4347-acc7-63fcaef7e586">
 
 ```
 npm install dynamic-tasks || yarn add dynamic-tasks
@@ -37,8 +47,13 @@ const p5 = (res) =>
   });
 ```
 # 功能：<br>
-## DynamicTasks 支持动态添加任务 支持时间切片<br>
+## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
+ * 支持动态添加
+ * 支持并行&串行
+ * 支持同步&异步
+ * 支持时间切片
+
 
 ```
 import {DynamicTasks} from "dynamic-tasks";
@@ -153,7 +168,8 @@ clearPool()
 ```
 
 ## idleCallback
- 浏览器空闲执行 不紧急的任务建议使用这个api
+浏览器空闲执行 不紧急的任务建议使用这个api
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免
 ```
 import { idleCallback } from "dynamic-tasks"
 idleCallback((params)=>{
@@ -162,7 +178,8 @@ idleCallback((params)=>{
 ```
 
 ## idle 
-浏览器空闲执行 不紧急的任务建议使用这个api
+浏览器空闲执行 不紧急的任务建议使用这个api 
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免
 ```
 import { idle } from "dynamic-tasks"
  idle([{key: 'p1',task: p1}],100).then(res => {
