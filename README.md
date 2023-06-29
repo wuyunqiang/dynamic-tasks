@@ -115,8 +115,6 @@ run in web worker thread pool。<br>
 独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
 可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
 可以通过网络获取数据运算。<br>
-兼容性良好 放心使用<br>
-![webworker](https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/3ee340d6-a185-4222-9c2c-ba893866c454)
 
 ```
 import { pool } from "dynamic-tasks"
