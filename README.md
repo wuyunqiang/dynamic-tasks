@@ -48,6 +48,17 @@ const p5 = (res) =>
   });
 ```
 # 功能：<br>
+
+## yieldToMain
+让出主线程 避免UI卡顿<br>
+此方法后面的任务将在下一帧继续执行。
+```
+import {yieldToMain} from "dynamic-tasks";
+p1()
+await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
+p2();
+```
+
 ## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
  * 支持动态添加
@@ -103,6 +114,9 @@ run in web worker thread pool。<br>
 独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
 可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
 可以通过网络获取数据运算。<br>
+兼容性良好 放心使用<br>
+![webworker](https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/3ee340d6-a185-4222-9c2c-ba893866c454)
+
 ```
 import { pool } from "dynamic-tasks"
 const p1 = (res) => {
@@ -244,14 +258,6 @@ cancelP
 cancelP.cancel();
 ```
 
-## yieldToMain
-让出主线程 避免UI卡顿<br>
-此方法后面的任务将在下一帧继续执行。
-```
-import {yieldToMain} from "dynamic-tasks";
-p1()
-await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
-p2();
-```
+
 
 
