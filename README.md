@@ -244,13 +244,6 @@ cancelP
 cancelP.cancel();
 ```
 
-## nextFrameExecute
-```
-import {nextFrameExecute} from "dynamic-tasks";
-nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
-```
-
-
 ## yieldToMain
 让出主线程 避免UI卡顿<br>
 此方法后面的任务将在下一帧继续执行。
