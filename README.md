@@ -1,6 +1,7 @@
 # 基于 promise 的动态任务库
-核心思路：<br>
-基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,利用浏览器空闲执行等方式,避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
+# 核心思路：<br>
+基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,让出主线程,利用浏览器空闲执行等方式<br>
+避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
 
 
 ## normal
@@ -251,6 +252,8 @@ nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
 
 
 ## yieldToMain
+让出主线程 避免UI卡顿<br>
+此方法后面的任务将在下一帧继续执行。
 ```
 import {yieldToMain} from "dynamic-tasks";
 p1()
