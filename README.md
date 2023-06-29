@@ -244,10 +244,18 @@ cancelP.cancel();
 ```
 
 ## nextFrameExecute
-
 ```
 import {nextFrameExecute} from "dynamic-tasks";
 nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
+```
+
+
+## yieldToMain
+```
+import {yieldToMain} from "dynamic-tasks";
+p1()
+await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
+p2();
 ```
 
 
