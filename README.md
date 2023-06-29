@@ -4,7 +4,7 @@
 基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,让出主线程,利用浏览器空闲执行等方式<br>
 避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
 
-<img width="1708" alt="main-thread" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/d7b25997-ee21-4fa3-8691-8a654d39c8a1">
+![new-thread](https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/aad5de7f-6919-401f-b165-cf36f0e46638)
 
 ## normal
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
