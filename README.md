@@ -1,7 +1,10 @@
-# 基于 promise 的动态任务库
-核心思路：<br>
-基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,利用浏览器空闲执行等方式,避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
+# 一个避免卡顿的js任务库
 
+# 核心思路：<br>
+基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,让出主线程,利用浏览器空闲执行等方式<br>
+避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
+
+![new-thread](https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/aad5de7f-6919-401f-b165-cf36f0e46638)
 
 ## normal
 https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/e3dd2bdc-ba3a-469d-b8eb-7fa2a68819d2
@@ -47,6 +50,17 @@ const p5 = (res) =>
   });
 ```
 # 功能：<br>
+
+## yieldToMain
+让出主线程 避免UI卡顿<br>
+此方法后面的任务将在下一帧继续执行。
+```
+import {yieldToMain} from "dynamic-tasks";
+p1()
+await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
+p2();
+```
+
 ## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
  * 支持动态添加
@@ -102,6 +116,7 @@ run in web worker thread pool。<br>
 独立main thread上下文 使用new Function转换运行，因此不能访问外部变量。<br>
 可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
 可以通过网络获取数据运算。<br>
+
 ```
 import { pool } from "dynamic-tasks"
 const p1 = (res) => {
@@ -168,8 +183,9 @@ clearPool()
 ```
 
 ## idleCallback
-浏览器空闲执行 不紧急的任务建议使用这个api
-此时已经渲染完成，UI变更会导致页面重绘应尽量避免
+浏览器空闲执行 不紧急的任务建议使用这个api<br>
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
+参考react fiber思路通过raf+messagechannel 对不支持requestidlecallback的浏览器做了polyfill。
 ```
 import { idleCallback } from "dynamic-tasks"
 idleCallback((params)=>{
@@ -180,6 +196,7 @@ idleCallback((params)=>{
 ## idle 
 浏览器空闲执行 不紧急的任务建议使用这个api 
 此时已经渲染完成，UI变更会导致页面重绘应尽量避免
+内部使用idleCallback方法。
 ```
 import { idle } from "dynamic-tasks"
  idle([{key: 'p1',task: p1}],100).then(res => {
@@ -243,19 +260,6 @@ cancelP
 cancelP.cancel();
 ```
 
-## nextFrameExecute
-```
-import {nextFrameExecute} from "dynamic-tasks";
-nextFrameExecute(p1).then(res=>console.log('test res', res)) // res 1111
-```
 
-
-## yieldToMain
-```
-import {yieldToMain} from "dynamic-tasks";
-p1()
-await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
-p2();
-```
 
 
