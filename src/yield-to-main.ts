@@ -8,3 +8,12 @@ export const yieldToMain = async () => {
     setTimeout(resolve, 0);
   });
 };
+
+/**
+ * @returns Promise
+ */
+export const sleep = async (time:number) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  });
+};
