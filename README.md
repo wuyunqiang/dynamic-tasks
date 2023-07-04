@@ -22,6 +22,25 @@ npm install dynamic-tasks || yarn add dynamic-tasks
 ```
 
 ```
+默认ES6语法 使用方自行转译和polyfill
+例如vue: 通过配置vue.config.js里面的transpileDependencies
+
+例如react通过配置
+rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules\/(?!(dynamic-tasks)\/).*/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env', '@babel/preset-react']
+          }
+        }
+      }
+    ]
+```
+
+```
 const p1 = (res) => {
   return 1111;
 };
