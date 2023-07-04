@@ -20,8 +20,9 @@ const babelConfig = {
 };
 
 const outputConfig = {
-  format: "es",
   exports: "auto",
+  name: "dynamic-tasks",
+  sourcemap: true,
 };
 
 const config = {
@@ -34,9 +35,7 @@ const config = {
     resolve({
       browser: true,
       extensions: [".js", ".ts"],
-      preferBuiltins: true,
     }),
-    
     commonjs(),
     terser(),
   ],
@@ -47,8 +46,19 @@ export default defineConfig([
     ...config,
     output: [
       {
+       ...outputConfig,
+        file: "dist/index.esm.js",
+        format: "es",
+      },
+      {
         ...outputConfig,
-        dir: "dist/es",
+        file: "dist/index.js",
+        format: "cjs",
+      },
+      {
+        ...outputConfig,
+        file: "dist/index.umd.js",
+        format: "umd",
       },
     ],
     plugins: [
@@ -58,21 +68,5 @@ export default defineConfig([
         targets: ["defaults"],
       }),
     ],
-  },
-  {
-    ...config,
-    output: [
-      {
-        ...outputConfig,
-        dir: "dist/legacy",
-      },
-    ],
-    plugins: [
-      ...config.plugins,
-      babel({
-        ...babelConfig,
-        targets: ["chrome 55","ios_saf 10"],
-      }),
-    ],
-  },
+  }
 ]);
