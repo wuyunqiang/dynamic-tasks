@@ -23,7 +23,8 @@ export class DynamicTasks {
     p = new Promise((resolve) => {
         this._resolve = resolve;
     });
-    constructor(config: Config) {
+    constructor(params?: Config) {
+        const config = params || {};
         this.parallelMax = config.parallelMax || 3;
         this.frame = !!config.frame;
     }
