@@ -81,6 +81,14 @@ await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执�
 p2();
 ```
 
+## sleep
+```
+import { sleep } from "dynamic-tasks";
+console.log('111111')
+await sleep(2000) // 两秒后继续执行
+console.log('222222')
+```
+
 ## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
  * 支持动态添加
