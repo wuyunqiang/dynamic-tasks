@@ -71,8 +71,9 @@ const p5 = (res) =>
 # 功能：<br>
 
 ## yieldToMain
-让出主线程 避免UI卡顿<br>
-此方法后面的任务将在下一帧继续执行。
+让出主线程 避免长任务阻塞UI 造成页面卡顿<br>
+此方法后面的任务将在下一帧继续执行。<br>
+优先使用MessageChannel宏任务&无延迟 使用setTimeOut兼容处理
 ```
 import {yieldToMain} from "dynamic-tasks";
 p1()
