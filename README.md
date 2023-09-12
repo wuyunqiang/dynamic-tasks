@@ -81,6 +81,24 @@ await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执�
 p2();
 ```
 
+## sleep
+```
+import { sleep } from "dynamic-tasks";
+console.log('111111')
+await sleep(2000) // 两秒后继续执行
+console.log('222222')
+```
+
+## nextFrameExecute
+下一帧执行某个任务 <br>
+优先使用requestAnimationFrame 使用setTimeout做兼容。
+```
+import { nextFrameExecute } from "dynamic-tasks";
+p1()
+nextFrameExecute(p2) // 将在下一帧执行这个任务
+p3()
+```
+
 ## DynamicTasks 
 有UI操作并且优先级较高 建议使用DynamicTasks的方式 避免卡顿使用frame参数分帧运行<br>
  * 支持动态添加
@@ -214,8 +232,8 @@ idleCallback((params)=>{
 ```
 
 ## idle 
-浏览器空闲执行 不紧急的任务建议使用这个api 
-此时已经渲染完成，UI变更会导致页面重绘应尽量避免
+浏览器空闲执行 不紧急的任务建议使用这个api <br>
+此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
 内部使用idleCallback方法。
 ```
 import { idle } from "dynamic-tasks"
@@ -225,6 +243,7 @@ import { idle } from "dynamic-tasks"
 ```
 
 ## serialTask
+顺序执行一系列任务 并返回结果
 
 ```
 import {serialTask} from "dynamic-tasks";
@@ -240,6 +259,7 @@ serialTask([p1,p2,p3]).then(res=>{
 ```
 
 ## parallelMaxTask
+并发执行一系列任务并返回结果
 
 ```
 import {parallelMaxTask} from "dynamic-tasks";
@@ -255,6 +275,7 @@ import {parallelMaxTask} from "dynamic-tasks";
 ```
 
 ## TaskCancelable
+封装的一个可以取消的promise任务
 
 ```
 import {TaskCancelable} from "dynamic-tasks
