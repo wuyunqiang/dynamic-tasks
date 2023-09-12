@@ -91,7 +91,10 @@ console.log('222222')
 
 ## nextFrameExecute
 下一帧执行某个任务 <br>
-优先使用requestAnimationFrame 使用setTimeout做兼容。
+实现优先级：<br>
+1:使用MessageChannel宏任务方式<br>
+2:使用requestAnimationFrame <br>
+3:使用setTimeout做兼容。<br>
 ```
 import { nextFrameExecute } from "dynamic-tasks";
 p1()
