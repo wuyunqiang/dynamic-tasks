@@ -2,78 +2,156 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>事件循环模拟代码</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件循环模拟代码</title>
 </head>
 
 <body>
-  <button id="btn" onclick="handle()">点击事件</button>
+    <button id="btn" onclick="handle()">点击事件</button>
 
-  <script>
-    window.onload = () => {
+    <script>
+        window.onload = () => {
 
-      handle = () => {
-        console.log('click 事件')
-      }
-
-      // click 事件
-      const click = () => {
-        const dom = document.getElementById('btn')
-        dom && dom.click()
-      }
-
-
-   // 宏任务 message channel
-      const channel = new MessageChannel()
-      const port = channel.port2;
-      channel.port1.onmessage = (message) => {
-        console.log('channel 被执行了', message.data)
-      }
-      const postMessage = (num = 0) => {
-        port.postMessage(num);
-      };
-
-      // 宏任务 timeout
-      const timeout = (num = 0, delay = 0) => {
-        setTimeout(function () {
-          console.log(num)
-        }, delay)
-      }
-
-      // 微任务
-      const promise = (num = 0) => Promise.resolve(num).then(console.log('promise', num))
-      
-      // 帧动画 requestAnimationFrame
-      let start = 0
-      function animate(timestamp) {
-        console.log('timestamp ==> ', timestamp - start);
-        // idleCallback()
-        start = timestamp
-        if (start < 3000) {
-          requestAnimationFrame(animate)
+        let count = 5;
+        let curCount = 0;
+        function test(){
+            let str = ''
+            for (let i = 0; i < 10000; i++) {
+                str += i
+            }
+            if (curCount < count) {
+                curCount++;
+                test();
+            }
+            // console.log('test str', str)
         }
-      }
-      requestAnimationFrame(animate)
 
-      // 空闲时间
-      const callback = (timestamp) => {
-        console.log('requestIdleCallback', timestamp.timeRemaining())
-      }
-      const idleCallback = () => requestIdleCallback(callback)
+            function test3(){
+                test();
+                console.log('test 333333333')
+            }
+
+            function test4(){
+                test();
+                console.log('test 4444444444')
+            }
+
+            function test2(){
+                test();
+                console.log('test 22222222')
+            }
+
+            function test1(){
+                test();
+                console.log('test 111111111')
+            }
+
+            handle = () => {
+                requestAnimationFrame(animate)
+                requestAnimationFrame(test3)
+
+                setTimeout(test4)
+                nextFrameExecute(test2)
+                
+                idleCallback();
+
+                test1();
+                promise()
+            }
+
+            // click 事件
+            const click = () => {
+                const dom = document.getElementById('btn')
+                dom && dom.click()
+            }
 
 
-      // 模拟
-      for (let i = 0; i < 10000; i++) {
-        click()
-        postMessage(i)
-        // timeout()
-        // promise() 
-      }
+            // 宏任务 message channel
+            const channel = new MessageChannel()
+            const port = channel.port2;
+            channel.port1.onmessage = (message) => {
+                console.log('channel 被执行了', message.data)
+            }
+            const postMessage = (num = 0) => {
+                port.postMessage(num);
+            };
 
-    }
-  </script>
+            // 宏任务 timeout
+            const timeout = (num = 0, delay = 0) => {
+                setTimeout(function () {
+                    console.log(num)
+                }, delay)
+            }
+
+            // 微任务
+            function promise(num = 0){
+                Promise.resolve(num).then(console.log('test promise', num))
+            } 
+            // 帧动画 requestAnimationFrame
+            let start = 0
+            function animate(timestamp) {
+                console.log('timestamp ==> ', Math.floor(timestamp - start));
+                // idleCallback()
+                start = timestamp
+                requestAnimationFrame(animate)
+            }
+
+            // 空闲时间
+            const callback = (timestamp) => {
+                console.log('test requestIdleCallback', timestamp.timeRemaining())
+            }
+            function idleCallback(){
+                requestIdleCallback(callback)
+            }
+
+
+            async function nextFrameExecute(task) {
+                let _resolve;
+                let _reject;
+                const p = new Promise((resolve, reject) => {
+                    _resolve = resolve;
+                    _reject = reject;
+                });
+
+                if (typeof MessageChannel !== 'undefined') {
+                    const channel = new MessageChannel(); // 建立宏任务的消息通道
+                    const port1 = channel.port1;
+                    const port2 = channel.port2;
+
+                    port2.onmessage = () => {
+                        Promise.resolve(task()).then(_resolve, _reject);
+                    }
+                    port1.postMessage('next')
+                    return p;
+                }
+
+                // if (typeof requestAnimationFrame !== "undefined") {
+                //   requestAnimationFrame(() => {
+                //     requestAnimationFrame(()=>{ // 下一帧执行
+                //       Promise.resolve(task()).then(_resolve, _reject);
+                //     })
+                //   });
+                //   return p;
+                // }
+                setTimeout(() => {
+                    Promise.resolve(task()).then(_resolve, _reject);
+                }, 16);
+                return p;
+            };
+
+
+            //   // 模拟
+            //   for (let i = 0; i < 10000; i++) {
+            //     click()
+            //     postMessage(i)
+            //     // timeout()
+            //     // promise() 
+            //   }
+
+        }
+    </script>
 </body>
 
 </html>
