@@ -16,7 +16,9 @@ export const nextFrameExecute = async (task: Task) => {
     });
     if (typeof requestAnimationFrame !== "undefined") {
       requestAnimationFrame(() => {
-        Promise.resolve(task()).then(_resolve, _reject);
+        requestAnimationFrame(()=>{
+          Promise.resolve(task()).then(_resolve, _reject);
+        })
       });
       return p;
     }

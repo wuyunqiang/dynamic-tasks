@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>事件循环模拟代码</title>
+</head>
+
+<body>
+  <button id="btn" onclick="handle()">点击事件</button>
+
+  <script>
+    window.onload = () => {
+
+      handle = () => {
+        console.log('click 事件')
+      }
+
+      // click 事件
+      const click = () => {
+        const dom = document.getElementById('btn')
+        dom && dom.click()
+      }
+
+
+   // 宏任务 message channel
+      const channel = new MessageChannel()
+      const port = channel.port2;
+      channel.port1.onmessage = (message) => {
+        console.log('channel 被执行了', message.data)
+      }
+      const postMessage = (num = 0) => {
+        port.postMessage(num);
+      };
+
+      // 宏任务 timeout
+      const timeout = (num = 0, delay = 0) => {
+        setTimeout(function () {
+          console.log(num)
+        }, delay)
+      }
+
+      // 微任务
+      const promise = (num = 0) => Promise.resolve(num).then(console.log('promise', num))
+      
+      // 帧动画 requestAnimationFrame
+      let start = 0
+      function animate(timestamp) {
+        console.log('timestamp ==> ', timestamp - start);
+        // idleCallback()
+        start = timestamp
+        if (start < 3000) {
+          requestAnimationFrame(animate)
+        }
+      }
+      requestAnimationFrame(animate)
+
+      // 空闲时间
+      const callback = (timestamp) => {
+        console.log('requestIdleCallback', timestamp.timeRemaining())
+      }
+      const idleCallback = () => requestIdleCallback(callback)
+
+
+      // 模拟
+      for (let i = 0; i < 10000; i++) {
+        click()
+        postMessage(i)
+        // timeout()
+        // promise() 
+      }
+
+    }
+  </script>
+</body>
+
+</html>
