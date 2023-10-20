@@ -40,7 +40,7 @@ rules: [
     ]
 ```
 
-```
+```javascript
 const p1 = (res) => {
   return 1111;
 };
@@ -74,7 +74,7 @@ const p5 = (res) =>
 让出主线程 避免长任务阻塞UI 造成页面卡顿<br>
 此方法后面的任务将在下一帧继续执行。<br>
 优先使用MessageChannel宏任务&无延迟 使用setTimeOut兼容处理
-```
+```javascript
 import {yieldToMain} from "dynamic-tasks";
 p1()
 await yieldToMain(); // 中断当前帧 让出给main thread 下一帧继续执行
@@ -82,7 +82,7 @@ p2();
 ```
 
 ## sleep
-```
+```javascript
 import { sleep } from "dynamic-tasks";
 console.log('111111')
 await sleep(2000) // 两秒后继续执行
@@ -95,7 +95,7 @@ console.log('222222')
 1:使用MessageChannel宏任务方式<br>
 2:使用requestAnimationFrame <br>
 3:使用setTimeout做兼容。<br>
-```
+```javascript
 import { nextFrameExecute } from "dynamic-tasks";
 p1()
 nextFrameExecute(p2) // 将在下一帧执行这个任务
@@ -110,7 +110,7 @@ p3()
  * 支持时间切片
 
 
-```
+```javascript
 import {DynamicTasks} from "dynamic-tasks";
 const task = new DynamicTasks({ parallelMax: 3, frame: true });
 task.start([
@@ -158,7 +158,7 @@ run in web worker thread pool。<br>
 可以通过串行的方式(默认就是串行),获取到上一个task的结果。<br>
 可以通过网络获取数据运算。<br>
 
-```
+```javascript
 import { pool } from "dynamic-tasks"
 const p1 = (res) => {
   console.log("test p1 res", res, 1111);
@@ -218,7 +218,7 @@ pool([
 ```
 
 ## clearPool
-```
+```javascript
 import { clearPool } from "dynamic-tasks"
 clearPool()
 ```
@@ -227,7 +227,7 @@ clearPool()
 浏览器空闲执行 不紧急的任务建议使用这个api<br>
 此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
 参考react fiber思路通过raf+messagechannel 对不支持requestidlecallback的浏览器做了polyfill。
-```
+```javascript
 import { idleCallback } from "dynamic-tasks"
 idleCallback((params)=>{
   console.log('test idleCallback params', params)
@@ -238,7 +238,7 @@ idleCallback((params)=>{
 浏览器空闲执行 不紧急的任务建议使用这个api <br>
 此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
 内部使用idleCallback方法。
-```
+```javascript
 import { idle } from "dynamic-tasks"
  idle([{key: 'p1',task: p1}],100).then(res => {
   console.log('test idle:', res)
@@ -248,7 +248,7 @@ import { idle } from "dynamic-tasks"
 ## serialTask
 顺序执行一系列任务 并返回结果
 
-```
+```javascript
 import {serialTask} from "dynamic-tasks";
 serialTask([p1,p2,p3]).then(res=>{
     console.log("test res", res)
@@ -264,7 +264,7 @@ serialTask([p1,p2,p3]).then(res=>{
 ## parallelMaxTask
 并发执行一系列任务并返回结果
 
-```
+```javascript
 import {parallelMaxTask} from "dynamic-tasks";
   parallelMaxTask([p1,p2, p3], 2).then((res)=>{
     console.log('test parallelMaxTask: ', res)
@@ -280,7 +280,7 @@ import {parallelMaxTask} from "dynamic-tasks";
 ## TaskCancelable
 封装的一个可以取消的promise任务
 
-```
+```javascript
 import {TaskCancelable} from "dynamic-tasks
 const p3 = () =>
   new Promise((resolve) => {
