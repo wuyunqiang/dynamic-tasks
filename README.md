@@ -306,6 +306,7 @@ cancelP.cancel();
 
 
 ## [KillAwait](https://github.com/wuyunqiang/blog/issues/23) 
+Promise的同步调用 消除异步的传染性
 ```
 import { KillAwait } from "dynamic-tasks
 const test3 = () => {
