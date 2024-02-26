@@ -5,7 +5,7 @@ import { PromiseCancel, Resolve, Task } from "../type/task";
  * @param {Promise} task 希望被转换的promise实例
  * @returns {Promise} 返回具有cancel()&isCancel()的promise对象
  */
-export const TaskCancelable = (task: Task) => {
+export const TaskCancelable = (task: Promise<any>) => {
     let _reject: Resolve;
     let isCancel = false;
     const _status = Symbol("cancel");
