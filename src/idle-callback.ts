@@ -66,4 +66,7 @@ function idleExecute(callback: IdleCallBackFn, params?: Options) {
   return cancelFlag;
 }
 
+
+export const cancelIdleCall = cancelIdleCallback || cancelAnimationFrame;
+
 export const idleCallback = requestIdleCallback || idleExecute
