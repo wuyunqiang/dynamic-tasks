@@ -1,8 +1,11 @@
 # 一个避免卡顿的js任务库
 
 # 核心思路：<br>
-基于[rail](https://web.dev/rail/)标准,通过webworker,长任务拆分,分帧执行,让出主线程,利用浏览器空闲执行等方式<br>
+基于[rail](https://web.dev/rail/)标准,通过webworker并行,长任务拆分&分帧执行,让出主线程,利用浏览器空闲执行等方式<br>
 避免js线程长期执行,阻塞UI渲染。以达到性能优化的目的。
+
+<img width="1440" alt="截屏2024-03-03 下午5 29 57" src="https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/9b6be4c8-a6a0-4614-855e-cd8bdc382f7b">
+
 
 ![new-thread](https://github.com/wuyunqiang/dynamic-tasks/assets/13480948/aad5de7f-6919-401f-b165-cf36f0e46638)
 
@@ -225,7 +228,9 @@ clearPool()
 
 ## idleCallback
 浏览器空闲执行 不紧急的任务建议使用这个api<br>
-此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
+不建议UI操作：<br>
+原因1：此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
+原因2：因为调用时机不确定 dom操作会导致页面视觉变动难以预测<br>
 参考react fiber思路通过raf+messagechannel 对不支持requestidlecallback的浏览器做了polyfill。
 ```javascript
 import { idleCallback } from "dynamic-tasks"
@@ -236,7 +241,9 @@ idleCallback((params)=>{
 
 ## idle 
 浏览器空闲执行 不紧急的任务建议使用这个api <br>
-此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
+不建议UI操作：<br>
+原因1：此时已经渲染完成，UI变更会导致页面重绘应尽量避免<br>
+原因2：因为调用时机不确定 dom操作会导致页面视觉变动难以预测<br>
 内部使用idleCallback方法。
 ```javascript
 import { idle } from "dynamic-tasks"
