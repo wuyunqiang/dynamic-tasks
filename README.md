@@ -375,7 +375,6 @@ test 最终结果 res 3
 ```
 
 ## microTask&macroTask
-微任务
 ```
 import { microTask, macroTask } from "dynamic-tasks"
 microTask(()=>{
