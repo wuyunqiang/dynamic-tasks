@@ -87,7 +87,7 @@ const macros = [{
         );
     },
     run: (callback: Task) => {
-        const channel = new global.MessageChannel();
+        const channel = new MessageChannel();
         channel.port1.onmessage = callback;
         const change = function () {
             channel.port2.postMessage(0);
