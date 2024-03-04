@@ -3,7 +3,7 @@ import { Resolve, Task } from "../type/task";
 /**
  * 时间切片的方式运行任务
  * 避免执行较多任务阻塞UI
- * 优先使用requestAnimationFrame,否则使用setTimeout兼容
+ * 使用MessageChannel > requestAnimationFrame > setTimeout兼容
  * @param {Function} task
  * @returns {Promise}
  */
