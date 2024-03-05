@@ -50,15 +50,6 @@ const micros = [
         },
     },
     {
-        name: 'setImmediate',
-        test: () => {
-            return typeof setImmediate === "function";
-        },
-        run: (callback: Task) => {
-            setImmediate(callback);
-        },
-    },
-    {
         name: 'MutationObserver',
         test: () => {
             return (
@@ -93,6 +84,15 @@ const macros = [{
             channel.port2.postMessage(0);
         };
         change();
+    },
+},
+{
+    name: 'setImmediate',
+    test: () => {
+        return typeof setImmediate === "function";
+    },
+    run: (callback: Task) => {
+        setImmediate(callback);
     },
 },
 {
