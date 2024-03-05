@@ -1,9 +1,12 @@
 {
   "name": "dynamic-tasks",
-  "version": "1.1.7",
+  "version": "1.1.9",
   "description": "基于promise的高性能任务库",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
+  "exports": {
+    ".": "./dist/index.esm.js"
+  },
   "types": "dist/types/src/index.d.ts",
   "type": "module",
   "author": "wuyunqiang",

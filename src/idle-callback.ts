@@ -4,7 +4,7 @@ export type IdleCallBackFnParams = {
 }
 
 export type IdleCallBackFn = (
-  params:IdleCallBackFnParams ) => void;
+  params: IdleCallBackFnParams) => void;
 
 export type Options = {
   timeout: number;
@@ -66,7 +66,23 @@ function idleExecute(callback: IdleCallBackFn, params?: Options) {
   return cancelFlag;
 }
 
+const cAction = () => {
+  if (typeof cancelIdleCallback === 'function') {
+    return cancelIdleCallback;
+  }
+  if (typeof cancelAnimationFrame === 'function') {
+    return cancelAnimationFrame;
+  }
+  return () => ({})
+}
 
-export const cancelIdleCall = cancelIdleCallback || cancelAnimationFrame;
+export const cancelIdleCall = cAction();
 
-export const idleCallback = requestIdleCallback || idleExecute
+const iAction = () => {
+  if (typeof requestIdleCallback === 'function') {
+    return requestIdleCallback;
+  }
+  return idleExecute;
+}
+
+export const idleCallback = iAction();
