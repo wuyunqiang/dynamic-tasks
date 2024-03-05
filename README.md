@@ -314,7 +314,7 @@ cancelP.cancel();
 
 ## [KillAwait](https://github.com/wuyunqiang/blog/issues/23) 
 Promise的同步调用 消除异步的传染性
-```
+```javascript
 import { KillAwait } from "dynamic-tasks"
 const test3 = () => {
   const res = KillAwait.promise((resolve) => {
@@ -374,8 +374,8 @@ test 3 res 3
 test 最终结果 res 3
 ```
 
-## microTask&macroTask
-```
+## microTask & macroTask
+```javascript
 import { microTask, macroTask } from "dynamic-tasks"
 microTask(()=>{
   console.log('microTask')
