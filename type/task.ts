@@ -20,7 +20,7 @@ export type PoolItem = {
 export type PoolList = PoolItem[]
 
 export type TaskList = TaskItem[]
-export type Resolve = (value: any) => void
+export type Resolve = (value?: any) => void
 
 export type TaskRes = {
     status: "succ" | 'fail',
