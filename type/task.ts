@@ -28,7 +28,7 @@ export type TaskRes = {
 }
 
 export interface PromiseCancel extends Promise<any>{
-    cancel:()=>void;
+    cancel:()=> Promise<any>;
     isCancel: ()=> boolean
 }
 
