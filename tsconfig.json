@@ -105,7 +105,7 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*.ts", "src/worker.js", "src/worker.js", "src/pool.ts", "src/pool.ts"],
+  "include": ["src/**/*.ts", "src/worker.js"],
   "exclude": ["dist", "node_modules"],
   "ts-node": {
     "esm": true,
